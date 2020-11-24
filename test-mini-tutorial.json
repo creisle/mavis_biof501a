@@ -19,7 +19,7 @@
     "libraries": {
         "mock-A47933": {
             "assign": [
-                "tests/data/mock_sv_events.tsv"
+                "tests/data/mock_trans_sv_events.tsv"
             ],
             "bam_file": "tests/data/mock_trans_reads_for_events.sorted.bam",
             "disease_status": "diseased",
@@ -67,7 +67,9 @@
     ],
     "summary": {
         "filter_min_remapped_reads": 5,
-        "filter_min_spanning_reads": 5
+        "filter_min_spanning_reads": 5,
+        "filter_min_linking_split_reads": 1,
+        "filter_min_flanking_reads": 10
     },
     "validate": {},
     "pairing": {},
