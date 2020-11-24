@@ -25,7 +25,7 @@ def calculate_bam_stats(config: Dict, library_name: str) -> Dict:
     Calculate the read stats for a library from a given bam file
     """
     library = config['libraries'][library_name]
-    annotations = ReferenceFile('annotations', config['reference']['annotations'])
+    annotations = ReferenceFile('annotations', *config['reference']['annotations'])
 
     if library['protocol'] == PROTOCOL.TRANS:
         if annotations is None or annotations.is_empty():
@@ -33,7 +33,7 @@ def calculate_bam_stats(config: Dict, library_name: str) -> Dict:
                 'missing required attribute: annotations. Annotations must be given for transcriptomes'
             )
         annotations.load()
-    bam = BamCache(library['protocol']['bam_file'])
+    bam = BamCache(library['bam_file'], stranded=library['strand_specific'])
     if library['protocol'] == PROTOCOL.TRANS:
         bam_stats = stats.compute_transcriptome_bam_stats(
             bam,

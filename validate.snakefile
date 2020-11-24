@@ -47,7 +47,7 @@ rule annotate:
             + ' --output ' + output_dir('{wildcards.library}/annotate/batch-{wildcards.job_id}')
             + ' &> ' + output_dir('{wildcards.library}/annotate/snakemake.batch-{wildcards.job_id}.log.txt')
 
-print('expected pairing inputs', expand(rules.annotate.output.result, zip, library=jobs.library, job_id=jobs.job_id))
+
 rule pairing:
     input: expand(rules.annotate.output.result, zip, library=jobs.library, job_id=jobs.job_id)
     output: stamp=output_dir('pairing/MAVIS.COMPLETE'),

@@ -61,6 +61,8 @@ export PATH=$(pwd)/bin:$PATH
 which blat
 ```
 
+## Running the Short Tutorial
+
 ### Running Snakemake
 
 Due to the fact that the number of files is dynamic, this snakemake pipeline is done in 2 steps.

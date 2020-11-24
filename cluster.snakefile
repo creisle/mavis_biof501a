@@ -86,7 +86,6 @@ rule convert:
 
 
 def get_cluster_inputs(w):
-    print('cluster inputs', w.library, config['libraries'][w.library]['assign'], file=sys.stderr)
     return  config['libraries'][w.library]['assign']
 
 
