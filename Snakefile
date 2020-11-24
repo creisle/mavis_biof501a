@@ -3,7 +3,6 @@ import os
 from typing import List
 from glob import glob
 import shutil
-import pandas
 import re
 
 from mavis.config import validate_config

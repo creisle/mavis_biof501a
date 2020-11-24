@@ -90,6 +90,7 @@ INSTALL_REQS = [
     'pyvcf==0.6.8',
     'shortuuid>=0.5.0',
     'svgwrite',
+    'snakemake==5.30.1',
 ]
 
 DEPLOY_REQS = ['twine', 'm2r', 'wheel']
@@ -123,6 +124,7 @@ setup(
             'calculate_ref_alt_counts = tools.calculate_ref_alt_counts:main',
         ]
     },
+    include_package_data=True,
     project_urls={'mavis': 'http://mavis.bcgsc.ca'},
 )
 check_nonpython_dependencies()

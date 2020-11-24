@@ -1,122 +1,41 @@
-<object type='image/svg+xml' data='docs/images/acronym.svg'>
-    <object type='image/svg+xml' data='images/acronym.svg'>
-    	<img src='docs/images/acronym.svg' onerror='this.src="images/acronym.svg"'>
-    </object><br>
-</object>
-
+# MAVIS snakemake
 
 ![PyPi](https://img.shields.io/pypi/v/mavis.svg) ![build](https://github.com/bcgsc/mavis/workflows/build/badge.svg?branch=master) [![codecov](https://codecov.io/gh/bcgsc/mavis/branch/master/graph/badge.svg)](https://codecov.io/gh/bcgsc/mavis) ![ReadTheDocs](https://readthedocs.org/projects/pip/badge/)
 
-
 ## About
 
-[MAVIS](http://mavis.bcgsc.ca) is python command-line tool for the post-processing of structural variant calls.
-The general [MAVIS](http://mavis.bcgsc.ca) pipeline consists of six main stages
+This is an adaptation of [MAVIS](http://mavis.bcgsc.ca) using snakemake. Previously MAVIS
+incorporated a lot of custom code for creating local and cluster pipelines. This project tests
+using snakemake to accomplish this instead. You can see a comparison of the code changes done to the
+project for this project by comparing the develop branch of this repository to its master branch
 
-- convert
-- [cluster](http://mavis.bcgsc.ca/docs/latest/mavis.cluster.html#mavis-cluster)
-- [validate](http://mavis.bcgsc.ca/docs/latest/mavis.validate.html#mavis-validate)
-- [annotate](http://mavis.bcgsc.ca/docs/latest/mavis.annotate.html#mavis-annotate)
-- [pairing](http://mavis.bcgsc.ca/docs/latest/mavis.pairing.html#mavis-pairing)
-- [summary](http://mavis.bcgsc.ca/docs/latest/mavis.summary.html#mavis-summary)
+## Getting Started
 
-## Getting Help
+Install a virtualenv using python3.6 or higher
 
-All steps in the MAVIS pipeline are called following the main mavis entry point. The usage menu can be viewed
-by running without any arguments, or by giving the -h/--help option
-
-``` bash
-mavis -h
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -U setuptools pip
+pip install .
 ```
 
-Help sub-menus can be found by giving the pipeline step followed by no arguments or the -h options
+The test pipeline which is incorporated here uses mock bam files which are included in the tests
+directory of this repository. This is configured by the JSON configuration found at the base
+level of this repository
 
-``` bash
-mavis cluster -h
+```text
+test-mini-tutorial.json
 ```
 
-Common problems and questions are addressed on the [wiki](https://github.com/bcgsc/mavis/wiki/Help-and-Frequently-Asked-Questions).
-If you have a question or issue that is not answered there (or already a github issue) please submit
-a github issue to our [github page](https://github.com/bcgsc/mavis/issues) or contact us by email at [mavis@bcgsc.ca](mailto:mavis@bcgsc.ca)
+Due to the fact that the number of files is dynamic, this snakemake pipeline is done in 2 steps.
+The first snakemake file will setup the directory, convert input files, and cluster the initial
+inputs into a set of jobs. The example below uses a jobs number of 4 but any number 1 or higher
+can be used.
 
-## Install Instructions
+This pipeline is flexible to work with any set of samples, the same setup is configured by
+the config file that it is passed
 
-There are 3 major steps to setting up and installing [MAVIS](http://mavis.bcgsc.ca). If you are a developer contributing to mavis, please see the [instructions for developers page](http://mavis.bcgsc.ca/docs/latest/development.html) instead
-
-### 1. Install Aligner
-
-In addition to the python package dependencies, [MAVIS](http://mavis.bcgsc.ca) also requires an aligner to be installed.
-Currently the only aligners supported are [blat](http://mavis.bcgsc.ca/docs/latest/glossary.html#term-blat) and [bwa mem](http://mavis.bcgsc.ca/docs/latest/glossary.html#term-bwa).
-For MAVIS to run successfully the aligner must be installed and accessible on the path.
-If you have a non-standard install you may find it useful to edit the PATH environment variable. For example
-
-``` bash
-export PATH=/path/to/directory/containing/blat/binary:$PATH
+```bash
+snakemake --jobs 4 -s Snakefile.cluster --configfile test-mini-tutorial.json
 ```
-
-[blat](http://mavis.bcgsc.ca/docs/latest/glossary.html#term-blat) is the default aligner. To configure MAVIS to use [bwa mem](http://mavis.bcgsc.ca/docs/latest/glossary.html#term-bwa) as a default instead, use the
-
-After this has been installed MAVIS itself can be installed through [pip](https://pypi.org/project/mavis/)
-
-### 2. Install MAVIS
-
-#### Install using pip
-
-The easiest way to install [MAVIS](http://mavis.bcgsc.ca) is through the python package manager, pip. If you do not have python3 installed it can be found [here](https://www.python.org/downloads)
-
-Ensuring you have a recent version of pip and setuptools will improve the install experience. Older versions of pip and setuptools may have issues with obtaining some of the mavis python dependencies
-
-``` bash
-pip install --upgrade pip setuptools
-```
-
-or (for Anaconda users)
-
-``` bash
-conda update pip setuptools
-```
-
-If this is not a clean/new python install it may be useful to set up mavis in a [virtual python environment](https://docs.python.org/3/tutorial/venv.html)
-
-Then install mavis itself
-
-``` bash
-pip install mavis
-```
-
-This will install mavis and its python dependencies.
-
-#### Install using Buildout
-
-Alternatively you can use the [bootstrap/buildout](http://www.buildout.org/en/latest/) to install mavis into bin/mavis
-
-``` bash
-git clone https://github.com/bcgsc/mavis.git
-cd mavis
-pip install zc.buildout
-python bootstrap.py
-bin/buildout
-```
-
-This will install mavis and its python dependencies into eggs inside the cloned mavis directory which can be used by simply running bin/mavis
-
-### 3. Build or Download Reference Files
-
-After [MAVIS](http://mavis.bcgsc.ca) is installed the [reference files](http://mavis.bcgsc.ca/docs/latest/mavis_input.html#reference-input-files) must be generated (or downloaded) before it can be run. A simple bash script to download the hg19 reference files and generate a MAVIS environment file is provided under mavis/tools for convenience.
-
-``` bash
-cd /path/to/where/you/want/to/put/the/files
-wget https://raw.githubusercontent.com/bcgsc/mavis/master/tools/get_hg19_reference_files.sh
-bash get_hg19_reference_files.sh
-source reference_inputs/hg19_env.sh
-```
-
-Once the above 3 steps are complete [MAVIS](http://mavis.bcgsc.ca) is ready to be run.
-See the MAVIS [tutorial](http://mavis.bcgsc.ca/docs/latest/pipeline.html#mavis-mini-tutorial) to learn about running MAVIS.
-
-
-## Citation
-
-If you use MAVIS as a part of your project please cite
-
-[Reisle,C. et al. (2018) MAVIS: Merging, Annotation, Validation, and Illustration of Structural variants. Bioinformatics.](https://doi.org/10.1093/bioinformatics/bty621)
