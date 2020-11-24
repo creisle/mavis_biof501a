@@ -1,4 +1,4 @@
-# MAVIS snakemake
+# MAVIS (BIOF510A snakemake)
 
 ![PyPi](https://img.shields.io/pypi/v/mavis.svg) ![build](https://github.com/bcgsc/mavis/workflows/build/badge.svg?branch=master) [![codecov](https://codecov.io/gh/bcgsc/mavis/branch/master/graph/badge.svg)](https://codecov.io/gh/bcgsc/mavis) ![ReadTheDocs](https://readthedocs.org/projects/pip/badge/)
 
@@ -10,6 +10,13 @@ using snakemake to accomplish this instead. You can see a comparison of the code
 project for this project by comparing the develop branch of this repository to its master branch
 
 ## Getting Started
+
+First clone this repository
+
+```bash
+git clone https://github.com/creisle/mavis_biof501a.git
+cd mavis_biof501a
+```
 
 ### Set up the Python Virtual Env
 
@@ -137,3 +144,33 @@ Once this is complete the file structural variant calls will be in this file
 ```text
 output_dir/summary/mavis_summary_all_mock-A36971_mock-A47933.tab
 ```
+
+Additionally the annotations folder will contain SVG visualizations of each structural variant
+that has been validated and annotated
+
+```bash
+output_dir/*/annotate/batch-*/drawings/*svg
+```
+
+## Running the Full Tutorial
+
+It is also possible to use this to run a larger more real-data example, however for the purposes
+of this assignment we minimize the inputs for running locally. If you would like to try a large example
+you can run the data from the
+[full mavis tutoral](https://mavis.readthedocs.io/en/latest/tutorials/full).
+
+Note this ~29 GB of data and takes significant resources to run (no less than 6GB ram per  annotation job)
+
+```bash
+wget http://www.bcgsc.ca/downloads/mavis/tutorial_data.tar.gz
+tar -xvzf tutorial_data.tar.gz
+```
+
+Now you can run the same commands as above using the new config `test-full-tutorial.json`. This
+will output all the content to directory in the config file: `output_dir_full`.
+
+Unlike the short example, this will annotate the config file with the bam stats which are calculated
+during the config validation.
+
+In this second experiment the control is the normal bam included which allows us to validate the
+somatic vs germline status of the variants validated.
