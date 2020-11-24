@@ -80,6 +80,8 @@ can be used.
 This pipeline is flexible to work with any set of samples, the same setup is configured by
 the config file that it is passed
 
+![snakemake cluster](docs/images/snakemake.cluster.mini-tutorial.png)
+
 ```bash
 snakemake --jobs 4 -s cluster.snakefile --configfile test-mini-tutorial.json
 ```
@@ -135,6 +137,8 @@ output_dir/
 The next pipeline file runs the validate, annotate, pairing, and summary stages of the MAVIS
 pipelines.
 
+![snakemake validate](docs/images/snakemake.validate.mini-tutorial.png)
+
 ```bash
 snakemake --jobs 4 -s validate.snakefile --configfile test-mini-tutorial.json
 ```
@@ -174,3 +178,9 @@ during the config validation.
 
 In this second experiment the control is the normal bam included which allows us to validate the
 somatic vs germline status of the variants validated.
+
+![snakemake cluster](docs/images/snakemake.cluster.full-tutorial.png)
+
+```bash
+snakemake --jobs 4 -s cluster.snakefile --configfile test-full-tutorial.json
+```

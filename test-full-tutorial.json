@@ -1,0 +1,95 @@
+{
+    "annotate": {
+        "draw_fusions_only": true
+    },
+    "convert": {
+        "breakdancer": {
+            "inputs": ["tutorial_data/breakdancer-1.4.5/*txt"],
+            "file_type": "breakdancer",
+            "assume_no_untemplated": true
+        },
+        "breakseq": {
+            "inputs": ["tutorial_data/breakseq-2.2/breakseq.vcf.gz"],
+            "file_type": "breakseq",
+            "assume_no_untemplated": true
+        },
+        "chimerascan": {
+            "inputs": ["tutorial_data/chimerascan-0.4.5/chimeras.bedpe"],
+            "file_type": "chimerascan",
+            "assume_no_untemplated": true
+        },
+        "defuse": {
+            "inputs": ["tutorial_data/defuse-0.6.2/results.classify.tsv"],
+            "file_type": "defuse",
+            "assume_no_untemplated": true
+        },
+        "manta": {
+            "inputs": ["tutorial_data/manta-1.0.0/diploidSV.vcf.gz", "tutorial_data/manta-1.0.0/somaticSV.vcf"],
+            "file_type": "manta",
+            "assume_no_untemplated": true
+        }
+    },
+    "cluster": {
+        "uninformative_filter": true,
+        "min_clusters_per_file": 100
+    },
+    "libraries": {
+        "L1522785992-normal": {
+            "assign": [
+                "breakdancer", "breakseq", "manta"
+            ],
+            "bam_file": "tutorial_data/L1522785992_normal.sorted.bam",
+            "disease_status": "normal",
+            "protocol": "genome"
+        },
+        "L1522785992-tumour": {
+            "assign": [
+                "breakdancer", "breakseq", "manta"
+            ],
+            "bam_file": "tutorial_data/L1522785992_tumour.sorted.bam",
+            "disease_status": "diseased",
+            "protocol": "genome"
+        },
+        "L1522785992-trans": {
+            "assign": [
+                "chimerascan", "defuse"
+            ],
+            "bam_file": "tutorial_data/L1522785992_trans.sorted.bam",
+            "disease_status": "diseased",
+            "protocol": "transcriptome",
+            "strand_specific": true
+        }
+    },
+    "output_dir": "output_dir_full",
+    "reference": {
+        "aligner_reference": [
+            "reference_inputs/hg19.2bit"
+        ],
+        "annotations": [
+            "reference_inputs/ensembl69_hg19_annotations.json"
+        ],
+        "dgv_annotation": [
+            "reference_inputs/dgv_hg19_variants.tab"
+        ],
+        "masking": [
+            "reference_inputs/hg19_masking.tab"
+        ],
+        "reference_genome": [
+            "reference_inputs/hg19.fa"
+        ],
+        "template_metadata": [
+            "reference_inputs/cytoBand.txt"
+        ]
+    },
+    "skip_stage": [
+    ],
+    "summary": {
+        "filter_min_remapped_reads": 5,
+        "filter_min_spanning_reads": 5,
+        "filter_min_linking_split_reads": 1,
+        "filter_min_flanking_reads": 10
+    },
+    "validate": {},
+    "pairing": {},
+    "schedule": {}
+}
