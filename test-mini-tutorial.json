@@ -14,7 +14,7 @@
     "cluster": {
         "uninformative_filter": false,
         "limit_to_chr": null,
-        "min_clusters_per_file": 2
+        "min_clusters_per_file": 5
     },
     "libraries": {
         "mock-A47933": {

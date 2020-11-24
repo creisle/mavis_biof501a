@@ -82,11 +82,11 @@ rule convert:
             + ' --assume_no_untemplated {params.assume_no_untemplated}'
             + ' --inputs {params.input_files}'
             + ' --outputfile {output}'
-            + ' &> ' + output_dir('converted_outputs/snakemake.{wildcards.alias}.log.txt; echo $?')
+            + ' &> ' + output_dir('converted_outputs/snakemake.{wildcards.alias}.log.txt')
 
 
 def get_cluster_inputs(w):
-    return  config['libraries'][w.library]['assign']
+    return config['libraries'][w.library]['assign']
 
 
 rule cluster:

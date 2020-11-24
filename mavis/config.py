@@ -43,9 +43,9 @@ def calculate_bam_stats(config: Dict, library_name: str) -> Dict:
             distribution_fraction=config['bam_stats']['distribution_fraction'],
         )
         return {
-            'median_fragment_size': bam_stats.median_fragment_size,
-            'read_length': bam_stats.read_length,
-            'stdev_fragment_size': bam_stats.stdev_fragment_size,
+            'median_fragment_size': int(bam_stats.median_fragment_size),
+            'read_length': int(bam_stats.read_length),
+            'stdev_fragment_size': int(bam_stats.stdev_fragment_size),
             'strand_specific': bam_stats.stranded,
             'strand_determining_read': bam_stats.strand_determining_read,
         }
@@ -57,9 +57,9 @@ def calculate_bam_stats(config: Dict, library_name: str) -> Dict:
         distribution_fraction=config['bam_stats']['distribution_fraction'],
     )
     return {
-        'median_fragment_size': bam_stats.median_fragment_size,
-        'read_length': bam_stats.read_length,
-        'stdev_fragment_size': bam_stats.stdev_fragment_size,
+        'median_fragment_size': int(bam_stats.median_fragment_size),
+        'read_length': int(bam_stats.read_length),
+        'stdev_fragment_size': int(bam_stats.stdev_fragment_size),
     }
 
 
@@ -143,8 +143,8 @@ def validate_config(config: Dict, bam_stats=False) -> None:
     conversion_dir = os.path.join(config['output_dir'], 'converted_outputs')
     # check all assignments are conversions aliases or existing files
     for libname, library in config['libraries'].items():
+        assignments = []
         for i, assignment in enumerate(library['assign']):
-            assignments = []
             if assignment in config.get('convert'):
                 # replace the alias with the expected output path
                 converted_output = os.path.join(conversion_dir, f'{assignment}.tab')

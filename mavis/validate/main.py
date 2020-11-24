@@ -130,6 +130,7 @@ def main(
                     stdev_fragment_size=config['libraries'][library]['stdev_fragment_size'],
                     read_length=config['libraries'][library]['read_length'],
                     median_fragment_size=config['libraries'][library]['median_fragment_size'],
+                    strand_determining_read=config['libraries'][library]['strand_determining_read'],
                     **dict(config['validate'].items())
                 )
                 evidence_clusters.append(evidence)

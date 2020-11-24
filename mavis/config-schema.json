@@ -54,8 +54,8 @@
             "type": "string"
         },
         "bam_stats": {
-            "description": "settings which affect how the bam stats are calculated",
             "additionalProperties": false,
+            "description": "settings which affect how the bam stats are calculated",
             "properties": {
                 "distribution_fraction": {
                     "default": 0.97,
@@ -363,6 +363,11 @@
                         "type": "integer"
                     },
                     "stdev_fragment_size": {
+                        "type": "integer"
+                    },
+                    "strand_determining_read": {
+                        "default": 2,
+                        "description": "1 or 2. the read in the pair which determines if (assuming a stranded protocol) the first or second read in the pair matches the strand sequenced",
                         "type": "integer"
                     },
                     "strand_specific": {
@@ -878,11 +883,6 @@
                     "default": 3,
                     "description": "The number of standard deviations away from the normal considered expected and therefore not qualifying as flanking reads",
                     "type": "number"
-                },
-                "strand_determining_read": {
-                    "default": 2,
-                    "description": "1 or 2. the read in the pair which determines if (assuming a stranded protocol) the first or second read in the pair matches the strand sequenced",
-                    "type": "integer"
                 },
                 "trans_fetch_reads_limit": {
                     "default": 12000,
