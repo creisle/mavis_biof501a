@@ -79,12 +79,12 @@ def main(
         masking (ReferenceFile): see :func:`mavis.annotate.file_io.load_masking_regions`
         annotations (ReferenceFile): see :func:`mavis.annotate.file_io.load_reference_genes`
     """
-    annotations = None
     masking = ReferenceFile.load_from_config(config, 'masking', eager_load=True)
+    annotations = ReferenceFile.load_from_config(config, 'annotations')
     if config[SECTION]['uninformative_filter'] and not annotations.is_empty():
-        annotations = ReferenceFile.load_from_config(config, 'annotations', eager_load=True)
+        annotations.load()
     if not masking.is_empty():
-        masking = masking.load()
+        masking.load()
 
     # output files
     filtered_output = os.path.join(output, 'filtered_pairs.tab')

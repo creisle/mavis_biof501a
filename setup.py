@@ -86,7 +86,8 @@ INSTALL_REQS = [
     'colour',
     'networkx==1.11.0',
     'numpy>=1.13.1',
-    'pysam>=0.9, <=0.15.2',
+    # 'pysam>=0.9, <=0.15.2',
+    'pysam==0.16.0.1',
     'pyvcf==0.6.8',
     'shortuuid>=0.5.0',
     'svgwrite',
@@ -125,6 +126,9 @@ setup(
         ]
     },
     include_package_data=True,
+    package_data={
+        'spec': ['config-schema.json'],
+    },
     project_urls={'mavis': 'http://mavis.bcgsc.ca'},
 )
 check_nonpython_dependencies()

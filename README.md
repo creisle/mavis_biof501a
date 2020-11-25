@@ -20,7 +20,9 @@ cd mavis_biof501a
 
 ### Set up the Python Virtual Env
 
-Install a virtualenv using python3.6 or higher
+Install a virtualenv using python3.6 or python3.7 (python NOT anaconda/conda)
+
+Note: python3.8 has shown some issues with pysam install
 
 ```bash
 python3 -m venv venv
@@ -156,7 +158,7 @@ that has been validated and annotated
 output_dir/*/annotate/batch-*/drawings/*svg
 ```
 
-## Running the Full Tutorial
+## Running the Full Tutorial Data set
 
 It is also possible to use this to run a larger more real-data example, however for the purposes
 of this assignment we minimize the inputs for running locally. If you would like to try a large example
@@ -182,5 +184,27 @@ somatic vs germline status of the variants validated.
 ![snakemake cluster](docs/images/snakemake.cluster.full-tutorial.png)
 
 ```bash
-snakemake --jobs 4 -s cluster.snakefile --configfile test-full-tutorial.json
+snakemake --jobs 2 -s cluster.snakefile --configfile test-full-tutorial.json
+```
+
+Note that this is very large job to run outside of a compute cluster so if you run the validate
+step for the full config it may take a while. The initial output should give you the following
+execution plan
+
+```text
+Job counts:
+        count   jobs
+        1       all
+        49      annotate
+        1       pairing
+        1       summary
+        49      validate
+        101
+```
+
+The memory requirements for each validate job tend to be ~10GB so if running this on low resources
+it is recommended to use 1 job maxiumu
+
+```bash
+snakemake --jobs 1 -s validate.snakefile --configfile test-full-tutorial.json
 ```
