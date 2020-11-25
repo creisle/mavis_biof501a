@@ -54,6 +54,12 @@ wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/blat/blat
 chmod 777 blat
 ```
 
+If you are using a mac, replace the wget step above with the following
+
+```bash
+wget http://hgdownload.soe.ucsc.edu/admin/exe/macOSX.x86_64/blat/blat
+```
+
 now test that the install worked by running the new executable
 
 ```bash
