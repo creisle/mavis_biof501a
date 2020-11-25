@@ -214,3 +214,10 @@ it is recommended to use 1 job maxiumu
 ```bash
 snakemake --jobs 1 -s validate.snakefile --configfile test-full-tutorial.json
 ```
+
+When complete you should be able to see several canonical cancer fusions in the results
+
+- ALK / EML4
+- RET / CCDC6
+- FOXO1 / PAX3
+- TACC3 / FGFR3
