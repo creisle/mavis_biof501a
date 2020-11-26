@@ -7,7 +7,7 @@
 This is an adaptation of [MAVIS](http://mavis.bcgsc.ca) using snakemake. Previously MAVIS
 incorporated a lot of custom code for creating local and cluster pipelines. This project tests
 using snakemake to accomplish this instead. You can see a comparison of the code changes done to the
-project for this project by comparing the develop branch of this repository to its master branch
+project for this project by [comparing the develop branch of this repository to its master branch](https://github.com/creisle/mavis_biof501a/compare/master...develop?expand=1)
 
 ## Getting Started
 
@@ -33,7 +33,7 @@ pip install .
 
 The test pipeline which is incorporated here uses mock bam files which are included in the tests
 directory of this repository. This is configured by the JSON configuration found at the base
-level of this repository
+level of this repository. The mini version involves both a mock WGS and mock RNA-seq bam.
 
 ```text
 test-mini-tutorial.json
