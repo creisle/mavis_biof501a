@@ -1,7 +1,7 @@
 # python generated files
 /.eggs
 /coverage
-/venv
+/venv*
 /.coverage
 *.pyc
 *__pycache__
@@ -34,3 +34,8 @@ junit
 !/docs/package/mavis/*/index.md
 
 .snakemake
+output_dir*
+bin
+dag*
+tutorial_data
+reference_inputs

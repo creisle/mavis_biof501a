@@ -243,11 +243,12 @@ def create_parser(argv):
     optional[SUBCOMMAND.CONVERT].add_argument(
         '--assume_no_untemplated', type=tab.cast_boolean, default=True
     )
-    required[SUBCOMMAND.CONVERT].add_argument(
-        '--outputfile', '-o', required=True, help='path to the outputfile', metavar='FILEPATH'
-    )
+    for command in [SUBCOMMAND.CONVERT, SUBCOMMAND.SETUP]:
+        required[command].add_argument(
+            '--outputfile', '-o', required=True, help='path to the outputfile', metavar='FILEPATH'
+        )
 
-    for command in set(SUBCOMMAND.values()) - {SUBCOMMAND.CONVERT}:
+    for command in set(SUBCOMMAND.values()) - {SUBCOMMAND.CONVERT, SUBCOMMAND.SETUP}:
         required[command].add_argument(
             '-o', '--output', help='path to the output directory', required=True
         )
@@ -340,7 +341,7 @@ def main(argv=None):
     try:
         with open(args.config, 'r') as fh:
             config = json.load(fh)
-            _config.validate_config(config, args.command)
+            _config.validate_config(config, args.command in {SUBCOMMAND.SETUP, SUBCOMMAND.VALIDATE})
     except AttributeError as err:
         if args.command != SUBCOMMAND.CONVERT:
             raise err
@@ -405,6 +406,10 @@ def main(argv=None):
                 args.strand_specific,
                 args.assume_no_untemplated,
             )
+        elif command == SUBCOMMAND.SETUP:
+            _util.LOG(f'writing: {args.outputfile}')
+            with open(args.outputfile, 'w') as fh:
+                fh.write(json.dumps(config, sort_keys=True, indent='  '))
         else:
             overlay_main(**args)
 

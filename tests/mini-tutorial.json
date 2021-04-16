@@ -73,5 +73,7 @@
     },
     "validate": {},
     "pairing": {},
-    "schedule": {}
+    "schedule": {},
+    "illustrate": {},
+    "bam_stats": {}
 }
