@@ -435,7 +435,7 @@ SUBCOMMAND = MavisNamespace(
     SUMMARY='summary',
     CONVERT='convert',
     OVERLAY='overlay',
-    SETUP='setup'
+    SETUP='setup',
 )
 """MavisNamespace: holds controlled vocabulary for allowed pipeline stage values
 
